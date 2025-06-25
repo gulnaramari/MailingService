@@ -4,10 +4,10 @@ from django.contrib.auth.views import (LogoutView, PasswordResetCompleteView, Pa
                                        PasswordResetDoneView, PasswordResetView)
 from django.urls import path, reverse_lazy
 
-from users.apps import UsersConfig
-from users.forms import UserPasswordResetForm, UserSetPasswordForm
-from users.sevices import UserService
-from users.views import RegisterView, UserListView, UserLoginView, UserUpdateView
+from .apps import UsersConfig
+from .forms import UserPasswordResetForm, UserSetPasswordForm
+from .services import UserService
+from .views import RegisterView, UserListView, UserLoginView, UserUpdateView
 
 app_name = UsersConfig.name
 

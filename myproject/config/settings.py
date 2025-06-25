@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
     'users',
+    'mailings',
 ]
 
 MIDDLEWARE = [
@@ -587,4 +588,15 @@ COUNTRY_CODES = (
     ("995", "+995"),
     ("996", "+996"),
     ("998", "+998"),
+)
+
+MAILING_STATUSES = (
+    ("created", "создана"),
+    ("started", "запущена"),
+    ("finished", "завершена"),
+)
+
+ATTEMPT_STATUSES = (
+    ("successful", "yспешно"),
+    ("unsuccessful", "не yспешно"),
 )

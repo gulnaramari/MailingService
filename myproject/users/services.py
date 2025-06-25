@@ -19,7 +19,7 @@ class UserService:
             "url": f"http://{host}/users/user-verification/{user.token}",
         }
 
-        subject = "Добро пожаловать в SkySender!"
+        subject = "Добро пожаловать в сервис рассылок!"
         html_message = render_to_string("registration/welcome_letter.html", context)
         plain_message = strip_tags(html_message)
 

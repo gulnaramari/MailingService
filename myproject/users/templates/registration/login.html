@@ -28,7 +28,7 @@
                         {% endif %}
                         {% if request.resolver_match.view_name == 'users:register' %}
                         {% block infomodal %}
-                            {% with "Спасибо за выбор SkySender!" as subject %}
+                            {% with "Спасибо за выбор нашего сервера!" as subject %}
                             {% with "Для завершения регистрации подтвердите свой Email, перейдя по ссылке, отправленной на Вашу почту." as text1 %}
                             <button type="submit" class="btn col-8 btn-primary mb-2" data-bs-toggle="modal"
                         data-bs-target="#infoModal-{{ object.pk }}">
@@ -57,3 +57,7 @@
         </div>
         <div class="col-4"></div>
         {% endblock %}
+</div>
+   </main>
+
+
