@@ -116,6 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "media/"
 
@@ -130,16 +131,12 @@ EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL") == "True"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL") == "False"
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 SERVER_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 EMAIL_ADMIN = EMAIL_HOST_USER
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 
 
 LOGIN_REDIRECT_URL = "mailings:main"
@@ -148,9 +145,9 @@ LOGOUT_REDIRECT_URL = "mailings:main"
 CACHE_ENABLED = os.getenv("CACHE_ENABLED", False) == "True"
 if CACHE_ENABLED:
     CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': os.getenv("LOCATION"),
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("LOCATION"),
         }
     }
 

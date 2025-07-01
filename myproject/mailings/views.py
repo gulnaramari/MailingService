@@ -79,7 +79,8 @@ class RecipientListView(LoginRequiredMixin, ListView):
             return self.model.objects.all()
         return user.recipients.all()
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class RecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения подробной информации о клиенте."""
 
@@ -135,7 +136,7 @@ class MessageListView(LoginRequiredMixin, ListView):
         return self.request.user.messages.all()
 
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения полного текста письма."""
 
@@ -194,7 +195,7 @@ class MailingListView(LoginRequiredMixin, ListView):
         return self.model.objects.filter(owner=user, is_disabled=False)
 
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения полной информации о рассылке."""
 

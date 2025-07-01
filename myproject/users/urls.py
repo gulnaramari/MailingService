@@ -8,8 +8,6 @@ from django.contrib.auth.views import (
     PasswordResetView,
 )
 from django.urls import path, reverse_lazy
-from django.views.decorators.cache import cache_page
-
 from .apps import UsersConfig
 from .forms import UserPasswordResetForm, UserSetPasswordForm
 from .services import UserService
