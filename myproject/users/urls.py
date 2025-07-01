@@ -1,8 +1,14 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import (LogoutView, PasswordResetCompleteView, PasswordResetConfirmView,
-                                       PasswordResetDoneView, PasswordResetView)
+from django.contrib.auth.views import (
+    LogoutView,
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.urls import path, reverse_lazy
+from django.views.decorators.cache import cache_page
 
 from .apps import UsersConfig
 from .forms import UserPasswordResetForm, UserSetPasswordForm
@@ -15,7 +21,11 @@ urlpatterns = [
     path("login/", UserLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("register/", RegisterView.as_view(), name="register"),
-    path("user-verification/<str:token>/", UserService.user_verification, name="user_verification"),
+    path(
+        "user-verification/<str:token>/",
+        UserService.user_verification,
+        name="user_verification",
+    ),
     path(
         "password-reset/",
         PasswordResetView.as_view(
@@ -42,7 +52,9 @@ urlpatterns = [
     ),
     path(
         "password-reset/complete/",
-        PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.html"),
+        PasswordResetCompleteView.as_view(
+            template_name="users/password_reset_complete.html"
+        ),
         name="password_reset_complete",
     ),
     path("users/<int:pk>/edit/", UserUpdateView.as_view(), name="edit_user"),

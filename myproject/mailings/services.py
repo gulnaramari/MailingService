@@ -23,20 +23,30 @@ class MailingsService:
         start_at = timezone.now()
 
         try:
-            response = send_mail(subject, message, None, recipients, fail_silently=False)
+            response = send_mail(
+                subject, message, None, recipients, fail_silently=False
+            )
         except smtplib.SMTPException as e:
-            MailingsService.log_attempt(status="unsuccessful", response=e, mailing=mailing)
+            MailingsService.log_attempt(
+                status="unsuccessful", response=e, mailing=mailing
+            )
         else:
-            MailingsService.log_attempt(status="successful", response=response, mailing=mailing)
+            MailingsService.log_attempt(
+                status="successful", response=response, mailing=mailing
+            )
         finally:
             end_at = timezone.now()
-            MailingsService.update_mailing_status(mailing=mailing, start_at=start_at, end_at=end_at)
+            MailingsService.update_mailing_status(
+                mailing=mailing, start_at=start_at, end_at=end_at
+            )
             return redirect(reverse("mailings:mailing_list"))
 
     @staticmethod
     def log_attempt(status, response, mailing):
         """Функция для создания записи о попытке рассылки."""
-        attempt = Attempt.objects.create(status=status, server_response=response, mailing=mailing)
+        attempt = Attempt.objects.create(
+            status=status, server_response=response, mailing=mailing
+        )
         attempt.save()
 
     @staticmethod

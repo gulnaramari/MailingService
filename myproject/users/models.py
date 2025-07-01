@@ -33,9 +33,15 @@ class User(AbstractUser):
     """Класс для создания пользователя."""
 
     username = models.CharField(
-        max_length=50, verbose_name="имя пользователя", help_text="Введите имя пользователя", null=True, blank=True
+        max_length=50,
+        verbose_name="имя пользователя",
+        help_text="Введите имя пользователя",
+        null=True,
+        blank=True,
     )
-    email = models.EmailField(unique=True, verbose_name="email", help_text="Введите свой email")
+    email = models.EmailField(
+        unique=True, verbose_name="email", help_text="Введите свой email"
+    )
     avatar = models.ImageField(
         upload_to="users/",
         verbose_name="фото",
@@ -60,9 +66,16 @@ class User(AbstractUser):
         blank=True,
     )
     country = models.CharField(
-        max_length=30, choices=COUNTRIES, verbose_name="страна", help_text="Выберите страну", null=True, blank=True
+        max_length=30,
+        choices=COUNTRIES,
+        verbose_name="страна",
+        help_text="Выберите страну",
+        null=True,
+        blank=True,
     )
-    token = models.CharField(max_length=100, verbose_name="токен", null=True, blank=True)
+    token = models.CharField(
+        max_length=100, verbose_name="токен", null=True, blank=True
+    )
     is_blocked = models.BooleanField(default=False, verbose_name="заблокирован")
 
     objects = UserManager()

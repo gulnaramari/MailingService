@@ -1,7 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from .forms import MailingForm, MailingManagerForm, MessageForm, RecipientForm
 from .models import Mailing, Message, Recipient
@@ -18,8 +27,12 @@ class MainView(TemplateView):
 
         context = super().get_context_data(**kwargs)
         context["users"] = User.objects.filter(is_blocked=False).distinct().count()
-        context["active_mailings"] = Mailing.objects.filter(status="started").distinct().count()
-        context["mailings"] = Mailing.objects.filter(is_disabled=False).distinct().count()
+        context["active_mailings"] = (
+            Mailing.objects.filter(status="started").distinct().count()
+        )
+        context["mailings"] = (
+            Mailing.objects.filter(is_disabled=False).distinct().count()
+        )
         return context
 
 
@@ -66,7 +79,7 @@ class RecipientListView(LoginRequiredMixin, ListView):
             return self.model.objects.all()
         return user.recipients.all()
 
-
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class RecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения подробной информации о клиенте."""
 
@@ -122,6 +135,7 @@ class MessageListView(LoginRequiredMixin, ListView):
         return self.request.user.messages.all()
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения полного текста письма."""
 
@@ -180,6 +194,7 @@ class MailingListView(LoginRequiredMixin, ListView):
         return self.model.objects.filter(owner=user, is_disabled=False)
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Класс для отображения полной информации о рассылке."""
 

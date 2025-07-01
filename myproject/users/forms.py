@@ -1,5 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    UserCreationForm,
+)
 
 from .models import User
 
@@ -24,7 +29,11 @@ class UserForm(UserCreationForm):
         """Метод для стилизации формы."""
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields["email"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "name@example.com", "required": True}
+            {
+                "class": "form-control",
+                "placeholder": "name@example.com",
+                "required": True,
+            }
         )
         self.fields["email"].help_text = ""
         self.fields["password1"].label = "Пароль"
@@ -37,7 +46,11 @@ class UserForm(UserCreationForm):
             {"class": "form-control", "placeholder": "Пароль", "required": True}
         )
         self.fields["password2"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Повторите пароль", "required": True}
+            {
+                "class": "form-control",
+                "placeholder": "Повторите пароль",
+                "required": True,
+            }
         )
 
 
@@ -52,9 +65,15 @@ class UserAuthenticationForm(AuthenticationForm):
         """Метод для стилизации формы."""
         super(UserAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields["username"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "name@example.com", "required": True}
+            {
+                "class": "form-control",
+                "placeholder": "name@example.com",
+                "required": True,
+            }
         )
-        self.fields["password"].widget.attrs.update({"class": "form-control", "required": True})
+        self.fields["password"].widget.attrs.update(
+            {"class": "form-control", "required": True}
+        )
 
 
 class UserManagerForm(forms.ModelForm):
